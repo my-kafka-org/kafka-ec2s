@@ -21,10 +21,6 @@ function install_nginx() {
     sudo systemctl enable nginx
 }
 
-function start_nginx()  {
-  sudo service nginx restart
-}
-
 function install_kafka {
 sudo cd /root
 sudo wget https://apachemirror.sg.wuchna.com/kafka/2.5.0/kafka-2.5.0-src.tgz
@@ -34,5 +30,4 @@ sudo tar -xvf kafka-2.5.0-src.tar
 
 set_hostname
 install_nginx
-start_nginx
 install_kafka
