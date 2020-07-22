@@ -26,6 +26,7 @@ sudo yum install -y java-1.8.0-openjdk
 sudo wget https://apachemirror.sg.wuchna.com/kafka/2.5.0/kafka_2.13-2.5.0.tgz
 sudo gunzip kafka_2.13-2.5.0.tgz
 sudo tar -xvf kafka_2.13-2.5.0.tar
+export PATH=/kafka_2.13-2.5.0/bin:$PATH >> ~/.bashrc
 }
 
 set_hostname
