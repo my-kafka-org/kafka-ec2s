@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function set_hostname()  {
-   sudo yum install wget
+   sudo yum install -y wget
    local_ip=`wget -q -O - http://169.254.169.254/latest/meta-data/local-ipv4`
    HOSTNAME=thiru_nginx-$local_ip
    hostname $HOSTNAME
