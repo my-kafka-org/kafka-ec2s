@@ -22,7 +22,7 @@ function install_nginx() {
 }
 
 function install_kafka {
-sudo cd /root
+sudo yum install -y java-1.8.0-openjdk
 sudo wget https://apachemirror.sg.wuchna.com/kafka/2.5.0/kafka-2.5.0-src.tgz
 sudo gunzip kafka-2.5.0-src.tgz
 sudo tar -xvf kafka-2.5.0-src.tar
