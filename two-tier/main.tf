@@ -102,7 +102,43 @@ resource "aws_key_pair" "auth" {
   public_key = "${var.public_key_path}"
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "web1" {
+  # The connection block tells our provisioner how to
+  # communicate with the resource (instance)
+  connection {
+    # The default username for our AMI
+    user = "ubuntu"
+    host = "${self.public_ip}"
+    # The connection will use the local SSH agent for authentication.
+  }
+
+  instance_type = "t3.micro"
+
+  # Lookup the correct AMI based on the region
+  # we specified
+  ami = "${lookup(var.aws_amis, var.aws_region)}"
+
+  # The name of our SSH keypair we created above.
+  key_name = "${aws_key_pair.auth.id}"
+
+  # Our Security group to allow HTTP and SSH access
+  vpc_security_group_ids = ["${aws_security_group.default.id}"]
+
+  # We're going to launch into the same subnet as our ELB. In a production
+  # environment it's more common to have a separate private subnet for
+  # backend instances.
+  subnet_id = "${aws_subnet.default.id}"
+
+  user_data           = "${file("${path.module}/bootstrap_nginx.tpl")}"
+
+  tags = {
+		name = "terraform-firsts"	
+		cost-center = "free"
+	}
+
+}
+
+resource "aws_instance" "web2" {
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
   connection {
